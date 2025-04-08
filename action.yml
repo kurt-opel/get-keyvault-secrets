@@ -5,11 +5,11 @@ inputs:
     description: 'Name of the azure key vault'
     required: true
   secrets:
-    description: 'Name of the secret to be fetched' #Comma separated list of secret keys can be specified
+    description: 'Name(s) of the secret to be fetched' #Comma separated list of secret keys can be specified
     required: true
 branding:
   icon: 'akv.svg'
   color: 'blue'
 runs:
   using: node20
-  main: 'lib/main.js'
+  main: lib/main.js
