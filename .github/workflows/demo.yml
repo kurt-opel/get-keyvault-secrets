@@ -7,15 +7,21 @@ on:
 jobs:
   action-in-action:
     name: Action in action
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: install AZURE CLI
+        uses: pietrobolcato/install-azure-cli-action@v1.0.1
+
+      - name: test azure-CLI
+        run: az -v
+
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CLIENT_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Get Keyvault Secrets
         id: get-secret
@@ -25,4 +31,4 @@ jobs:
           secrets: ${{ secrets.AZURE_SECRET_NAME }}
 
       - name: What is the secret?
-        run: echo ${{ steps.get-secret.outputs[secrets.AZURE_SECRET_NAME] }}
+        run: echo "The secret is ${{ steps.get-secret.outputs[secrets.AZURE_SECRET_NAME] }}"
