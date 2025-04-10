@@ -12,11 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: install AZURE CLI
-        uses: pietrobolcato/install-azure-cli-action@v1.0.1
-
-      - name: test azure-CLI
-        run: az -v
+      # uncomment step below to use _act_ locally
+      # - name: install AZURE CLI
+      #   uses: pietrobolcato/install-azure-cli-action@v1.0.1
 
       - name: Azure Login
         uses: azure/login@v2
@@ -27,8 +25,8 @@ jobs:
         id: get-secret
         uses: ./
         with:
-          keyvault: ${{ secrets.AZURE_KEYVAULT_NAME }}
-          secrets: ${{ secrets.AZURE_SECRET_NAME }}
+          keyvault: ${{ vars.AZURE_KEYVAULT_NAME }}
+          secrets: ${{ vars.AZURE_SECRET_NAME }}
 
       - name: What is the secret?
-        run: echo "The secret is ${{ steps.get-secret.outputs[secrets.AZURE_SECRET_NAME] }}"
+        run: echo "The secret is ${{ steps.get-secret.outputs[vars.AZURE_SECRET_NAME] }}"
